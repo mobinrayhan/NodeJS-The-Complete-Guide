@@ -1,0 +1,57 @@
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm/
+
+# Optional yarn cache directory
+.yarn/
+
+# Optional eslint cache
+.eslintcache
+
+# Optional yarn v2 state file
+.yarnrc.yml
+
+# Logs
+logs/
+*.log
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+lib/vendor
+
+# OS or Editor folders
+.DS_Store
+Thumbs.db
+
+# Environment variables
+.env
+
+# IDE settings
+.vscode/
+.idea/
+
+# Mac Finder settings
+._*
+.DS_Store
+
+# Windows folder config file
+Desktop.ini
+
+# Vim swap files
+.swp
+
+# Yarn integrity file
+.yarn-integrity
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Next.js build output
+/.next/
