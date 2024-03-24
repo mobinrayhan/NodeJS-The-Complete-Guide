@@ -1,24 +1,19 @@
 const path = require("path");
 
 const express = require("express");
-const bodyParser = require("body-parser");
+
+const { rootPath } = require("./helper/rootPath");
+
+const { usersRouter } = require("./routes/users");
+const { homeRoute } = require("./routes/home");
 
 const app = express();
 
-const adminRoutes = require("./routes/admin");
-const shopRoutes = require("./routes/shop");
+app.use(homeRoute);
+app.use(usersRouter);
 
-const { rootDir } = require("./helper/rootPath");
-
-app.use(bodyParser.urlencoded({ extended: false }));
-
-app.use(express.static(path.join(rootDir, "public")));
-
-app.use("/admin", adminRoutes);
-app.use(shopRoutes);
-
-app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(rootPath, "views", "404.html"));
 });
 
 app.listen(3000);

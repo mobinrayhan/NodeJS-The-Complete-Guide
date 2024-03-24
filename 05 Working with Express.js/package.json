@@ -11,7 +11,6 @@
   "author": "Mobin",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.20.2",
     "express": "^4.19.1"
   }
 }
