@@ -1,39 +1,19 @@
-const { writeFile } = require("fs");
-const http = require("http");
+const express = require("express");
 
-const server = http.createServer((req, res) => {
-  const { url } = req;
+const bodyParser = require("body-parser");
+const { homeRouter } = require("./routes/home");
+const { messageRoute } = require("./routes/message");
+const { sendMessageRouter } = require("./routes/send-message");
+const { pageNotFound } = require("./routes/404");
+const { rootPath } = require("./helper/rootPath");
 
-  if (url === "/") {
-    res.write(`
-        <h1>Home Page</h1>
-            <form action="/message" method="POST">
-            <input type="text" name="message" />
-            <button type="submit">Send</button>
-        </form>
-    `);
-    return res.end();
-  }
+const app = express();
 
-  if (url === "/message") {
-    const body = [];
-    req.on("data", (chunk) => body.push(chunk));
+app.use(bodyParser.urlencoded({ extended: false }));
 
-    req.on("end", (stream) => {
-      const requestBody = Buffer.concat(body).toString();
-      const message = requestBody.split("=").at(1);
-      writeFile("message.txt", message, (err) => {
-        console.error(err);
-      });
-    });
+app.use(sendMessageRouter);
+app.use(messageRoute);
+app.use(homeRouter);
+app.use(pageNotFound);
 
-    res.writeHead(301, {
-      location: "/",
-    });
-    return res.end();
-  }
-
-  res.write("<h1>Hello World</h1>");
-});
-
-server.listen(3000);
+app.listen(3000);
