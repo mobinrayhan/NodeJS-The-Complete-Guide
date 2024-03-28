@@ -5,7 +5,8 @@ const { rootPath } = require("../helper/rootPath");
 const router = Router();
 
 router.get("/", (req, res, next) => {
-  res.sendFile(path.join(rootPath, "views", "home.html"));
+  // res.sendFile(path.join(rootPath, "views", "home.html"));
+  res.render("home");
 });
 
 exports.homeRouter = router;
