@@ -16,15 +16,18 @@ function getProductFromFile(cb) {
 }
 
 module.exports = class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   save() {
     getProductFromFile((products) => {
       products.push(this);
       writeFile(p, JSON.stringify(products), (err) => {
-        console.log(err);
+        console.error(err);
       });
     });
   }
