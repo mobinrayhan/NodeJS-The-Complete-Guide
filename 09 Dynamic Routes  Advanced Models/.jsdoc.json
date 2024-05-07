@@ -1,0 +1,19 @@
+{
+  "source": {
+    "include": ["src"],
+    "includePattern": ".js$",
+    "excludePattern": "(node_modules/|docs)"
+  },
+  "opts": {
+    "recurse": true,
+    "destination": "./docs/jsdoc",
+    "template": "node_modules/minami"
+  },
+  "tags": {
+    "allowUnknownTags": true,
+    "dictionaries": ["jsdoc", "closure"]
+  },
+  "types": {
+    "express": ["./node_modules/@types/express/index.d.ts"]
+  }
+}

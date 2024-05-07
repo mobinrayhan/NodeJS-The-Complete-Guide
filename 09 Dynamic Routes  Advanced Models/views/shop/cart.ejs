@@ -1,0 +1,26 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<%- include('../includes/end.ejs') %>
+
+<main>
+    <% if(updatedCartProducts.length){ %>
+        <% for(let i = 0; i < updatedCartProducts.length; i++) { %>
+            <li><%= updatedCartProducts[i].title %> (<strong><%= updatedCartProducts[i].cartProduct.qty %> </strong>)
+                (Total Price = <%= updatedCartProducts[i].price %> )
+
+                <form action="/delete-product" method="POST">
+                    <button class="btn">Delete</button>
+                    <input type="hidden" name="productId" value="<%= updatedCartProducts[i].cartProduct.id %>">
+                </form>
+            </li>
+        <% } %>
+    <% } %>
+    <% if(updatedCartProducts.length <= 0 ){ %>
+        <h1>No Products Found</h1>
+    <% } %>
+</main>
+
+<%- include('../includes/end.ejs') %>
