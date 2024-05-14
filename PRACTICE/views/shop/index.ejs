@@ -1,0 +1,28 @@
+<%- include('../partials/head.ejs') %>
+<main>
+    <%- include('../partials/navigation.ejs') %>
+
+    <% if(products.length === 0){ %>
+        <h1 class="text-center text-3xl ">NO Products Found</h1>
+    <% } %>
+
+    <div class="flex pt-8 gap-6  container max-w-6xl mx-auto justify-between items-start">
+        <% for(let i = 0; i < products.length; i++) { %>
+            <div class="w-1/4 flex flex-col gap-4 border border-gray-500 rounded pb-4">
+                <h1 class="text-center text-3xl p-2"><%= products[i].title %></h1>
+                <img src="<%= products[i].imageUrl %>" alt="<%= products[i].description %>">
+                <h3 class="text-3xl text-center">$<%= products[i].price %></h3>
+                <p class="text-center"><%= products[i].description %></p>
+
+                <div class="text-center">
+                    <a class=" border-green-500 p-1 rounded border-2 hover:text-gray-100 hover:bg-green-500"
+                       href="/products/<%= products[i].id %>">Detail</a>
+                    <a class=" border-green-500 p-1 rounded border-2 hover:text-gray-100 hover:bg-green-500"
+                       href="/add-to-cart">Add To Cart</a>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+</main>
+<%- include('../partials/end.ejs') %>

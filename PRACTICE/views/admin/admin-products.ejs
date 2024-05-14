@@ -1,0 +1,30 @@
+<%- include('../partials/head.ejs') %>
+<main>
+    <%- include('../partials/navigation.ejs') %>
+
+    <div class="flex pt-8 gap-6  container max-w-6xl mx-auto justify-between items-start">
+        <% for(let i = 0; i < products.length; i++) { %>
+            <div class="w-1/4 flex flex-col gap-4 border border-gray-500 rounded pb-4">
+                <h1 class="text-center text-3xl p-2"><%= products[i].title %></h1>
+                <img src="<%= products[i].imageUrl %>" alt="<%= products[i].description %>">
+                <h3 class="text-3xl text-center">$<%= products[i].price %></h3>
+                <p class="text-center"><%= products[i].description %></p>
+
+                <div class="text-center flex justify-center gap-4">
+                    <a class=" border-green-500 p-1 rounded border-2 hover:text-gray-100 hover:bg-green-500"
+                       href="/admin/edit-products/<%= products[i].id %>">Edit</a>
+
+                    <form action="/admin/delete-products" method="POST">
+
+                        <button type="submit"
+                                class=" border-green-500 p-1 rounded border-2 hover:text-gray-100 hover:bg-green-500"
+                        >Delete
+                        </button>
+                        <input type="hidden" name="productId" value="<%= products[i].id %>">
+                    </form>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</main>
+<%- include('../partials/end.ejs') %>
