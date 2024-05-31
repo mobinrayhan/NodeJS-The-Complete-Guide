@@ -8,21 +8,24 @@
 <main>
     <% if(products.length){ %>
         <% for(let i = 0; i < products.length; i++) { %>
-            <li><%= products[i].title %> (<strong><%= products[i].quantity %> </strong>)
-                (Total Price = <%= products[i].price * products[i].quantity %> )
+            <li><%= products[i].productId.title %> (<strong><%= products[i].quantity %> </strong>)
+                (Total Price = <%= products[i].productId.price * products[i].quantity %> )
                 <form action="/delete-cart-product" method="POST">
                     <button class="btn">Delete</button>
-                    <input type="hidden" name="productId" value="<%= products[i]._id %>">
+                    <input type="hidden" name="productId" value="<%= products[i].productId._id %>">
                 </form>
             </li>
 
-            <form action="/create-order" method="POST">
-                <button class="btn" type="submit">Order Now</button>
-            </form>
+
         <% } %>
     <% } %>
     <% if(products.length <= 0 ){ %>
         <h1>No Products Found</h1>
+    <% } %>
+    <% if(products.length > 0 ){ %>
+        <form action="/create-order" method="POST">
+            <button class="btn" type="submit">Order Now</button>
+        </form>
     <% } %>
 
 </main>
