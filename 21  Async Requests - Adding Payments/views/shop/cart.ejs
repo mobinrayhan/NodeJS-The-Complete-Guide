@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+</head>
+
+<body>
+<%- include('../includes/navigation.ejs') %>
+<%- include('../includes/end.ejs') %>
+
+<main>
+    <% if(products.length){ %>
+        <% for(let i = 0; i < products.length; i++) { %>
+            <li><%= products[i].productId.title %> (<strong><%= products[i].quantity %> </strong>)
+                (Total Price = <%= products[i].productId.price * products[i].quantity %> )
+                <form action="/delete-cart-product" method="POST">
+                    <button class="btn">Delete</button>
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <input type="hidden" name="productId" value="<%= products[i].productId._id %>">
+                </form>
+            </li>
+
+
+        <% } %>
+    <% } %>
+    <% if(products.length <= 0 ){ %>
+        <h1>No Products Found</h1>
+    <% } %>
+    <% if(products.length > 0 ){ %>
+        <form action="/create-order" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <button class="btn" type="submit">Order Now</button>
+        </form>
+    <% } %>
+
+</main>
+
+<%- include('../includes/end.ejs') %>
