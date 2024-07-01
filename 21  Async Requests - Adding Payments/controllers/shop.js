@@ -3,10 +3,7 @@ const Order = require("../models/orders");
 const User = require("../models/user");
 const path = require("node:path");
 const { createInvoice } = require("../util/createInvoice");
-const { request } = require("express");
-const stripe = require("stripe")(
-  `sk_test_51PRvP3LOuWP2kFiQDjvneHbzKp0mLl7XmlWixv3IH8uLTbrH9zLwWPJyj9dj4lYvuuXyU5Q4HJ7ONt59bWZiU8hV00dTcu52w3`,
-);
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const PRODUCT_PER_PAGE = 1;
 
 exports.getProducts = (req, res, next) => {
