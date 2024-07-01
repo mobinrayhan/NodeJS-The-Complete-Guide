@@ -13,6 +13,8 @@ const bodyParser = require("body-parser");
 const flash = require("connect-flash");
 const { doubleCsrf } = require("csrf-csrf");
 const cookieParser = require("cookie-parser");
+const shopController = require("./controllers/shop");
+const { userAuth } = require("./middleware/is-auth");
 
 const multer = require("multer");
 
@@ -89,7 +91,6 @@ const { doubleCsrfProtection } = doubleCsrf({
 });
 
 app.use(cookieParser());
-app.use(doubleCsrfProtection);
 
 app.use((req, res, next) => {
   if (!req.session?.user?._id) {
@@ -112,7 +113,6 @@ app.use((req, res, next) => {
 
 app.use((req, res, next) => {
   res.locals.isAuthenticated = req.session.isLoggedIn;
-  res.locals.csrfToken = req.csrfToken();
   next();
 });
 app.use(flash());
@@ -120,6 +120,14 @@ app.use(flash());
 const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const loginRoutes = require("./routes/auth");
+
+app.post("/create-order", userAuth, shopController.postOrder);
+
+app.use(doubleCsrfProtection);
+app.use((req, res, next) => {
+  res.locals.csrfToken = req.csrfToken();
+  next();
+});
 
 app.use("/admin", adminRoutes);
 app.use(shopRoutes);
@@ -131,6 +139,10 @@ app.use(errorController.get404);
 app.use((error, req, res, next) => {
   // console.log(error, "From ERROR middleware");
   // res.redirect("/500");
+
+  console.log(error, "Error IN ERROR middleware");
+
+  console.log(res.locals.csrfToken, "FROM APP.js");
 
   res.render("errors/500", {
     pageTitle: "Something went wrong!",

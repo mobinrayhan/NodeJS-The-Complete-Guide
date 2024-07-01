@@ -11,6 +11,7 @@ router.get("/products", shopController.getProducts);
 
 router.get("/cart", userAuth, shopController.getCart);
 router.post("/add-to-cart", userAuth, shopController.addToCart);
+
 router.post(
   "/delete-cart-product",
   userAuth,
@@ -18,9 +19,10 @@ router.post(
 );
 
 router.get("/orders", userAuth, shopController.getOrders);
+router.post("/create-order", userAuth, shopController.postOrder);
 router.get("/orders/:orderId", userAuth, shopController.getInvoice);
 
-router.post("/create-order", userAuth, shopController.postOrder);
+router.get("/checkout", userAuth, shopController.getCheckout);
 
 router.get("/products/:id", shopController.productDetails);
 

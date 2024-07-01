@@ -49,6 +49,7 @@ exports.postLogin = (req, res, next) => {
 
   User.findOne({ email: email.trim() })
     .then((user) => {
+      console.log(user);
       if (!user) {
         req.flash("loginError", "User not found of this email!");
         return res.status(422).render("auth/login", {
@@ -158,7 +159,7 @@ exports.postReset = (req, res, next) => {
   crypto.randomBytes(32, (err, buffer) => {
     if (err) {
       console.log(err);
-      return res.redirect("/reset");
+      res.redirect("/reset");
     }
 
     const token = buffer.toString("hex");
@@ -167,7 +168,6 @@ exports.postReset = (req, res, next) => {
         if (!user) {
           req.flash("userExist", "User not found with this appropriate email");
           res.redirect("/reset");
-          return Promise.reject("User not found");
         }
 
         user.token = token;
@@ -200,7 +200,7 @@ exports.postReset = (req, res, next) => {
       .catch((err) => {
         const error = new Error(err);
         error.httpStatusCode = 500;
-        return next(err);
+        next(err);
       });
   });
 };
